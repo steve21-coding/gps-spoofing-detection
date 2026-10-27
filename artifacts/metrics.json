@@ -1,0 +1,3106 @@
+{
+  "meta": {
+    "data_is_synthetic": true,
+    "disclaimer": "Models were trained and evaluated on simulated navigation data. Results show the ability to recognise the simulated patterns, not real-world spoofing detection performance.",
+    "seed": 42,
+    "n_trajectories": 400,
+    "duration_s": 300,
+    "generated_at_utc": "2026-10-25T16:16:29+00:00",
+    "versions": {
+      "python": "3.13.17",
+      "scikit_learn": "1.9.1",
+      "numpy": "2.5.3",
+      "pandas": "3.0.5",
+      "joblib": "1.6.0"
+    },
+    "validation_report": {
+      "n_rows_input": 120000,
+      "n_bad_timestamps_dropped": 0,
+      "n_invalid_coordinates": 240,
+      "n_duplicate_timestamps_dropped": 0,
+      "timestamps_were_sorted": true,
+      "n_rows_clean": 120000,
+      "n_trajectories": 400,
+      "missing_by_column": {
+        "lat": 240,
+        "lon": 240,
+        "alt": 240,
+        "speed_mps": 240,
+        "sat_count": 240,
+        "cn0_dbhz": 240
+      },
+      "optional_columns_present": [
+        "alt",
+        "speed_mps",
+        "sat_count",
+        "cn0_dbhz"
+      ]
+    },
+    "runtime_s": 231.13363432884216
+  },
+  "split": {
+    "train": {
+      "trajectories": 240,
+      "rows": 72000,
+      "positive_rate": 0.2195
+    },
+    "val": {
+      "trajectories": 80,
+      "rows": 24000,
+      "positive_rate": 0.2175
+    },
+    "test": {
+      "trajectories": 80,
+      "rows": 24000,
+      "positive_rate": 0.22845833333333335
+    }
+  },
+  "trajectories_by_scenario": {
+    "train": {
+      "consistent_drift": 24,
+      "drift": 29,
+      "dropout": 17,
+      "freeze": 19,
+      "glitch": 24,
+      "jump": 36,
+      "low_sat_noise": 19,
+      "normal": 72
+    },
+    "val": {
+      "consistent_drift": 8,
+      "drift": 9,
+      "dropout": 6,
+      "freeze": 6,
+      "glitch": 8,
+      "jump": 12,
+      "low_sat_noise": 7,
+      "normal": 24
+    },
+    "test": {
+      "consistent_drift": 8,
+      "drift": 10,
+      "dropout": 5,
+      "freeze": 7,
+      "glitch": 8,
+      "jump": 12,
+      "low_sat_noise": 6,
+      "normal": 24
+    }
+  },
+  "feature_sets": {
+    "position": {
+      "features": [
+        "dt",
+        "step_dist",
+        "derived_speed",
+        "accel",
+        "heading_change",
+        "pred_err",
+        "roll_speed_mean",
+        "roll_speed_std",
+        "roll_step_max",
+        "roll_hdg_std",
+        "roll_pred_err_max",
+        "invalid_obs"
+      ],
+      "requires": [
+        "timestamp",
+        "lat",
+        "lon"
+      ]
+    },
+    "kinematic": {
+      "features": [
+        "dt",
+        "step_dist",
+        "derived_speed",
+        "accel",
+        "heading_change",
+        "pred_err",
+        "roll_speed_mean",
+        "roll_speed_std",
+        "roll_step_max",
+        "roll_hdg_std",
+        "roll_pred_err_max",
+        "invalid_obs",
+        "vertical_speed",
+        "alt_jump",
+        "speed_mps",
+        "speed_residual",
+        "abs_speed_residual",
+        "roll_resid_mean",
+        "roll_absresid_mean",
+        "disp_excess_60",
+        "disp_ratio_60"
+      ],
+      "requires": [
+        "timestamp",
+        "lat",
+        "lon",
+        "alt",
+        "speed_mps"
+      ]
+    },
+    "full": {
+      "features": [
+        "dt",
+        "step_dist",
+        "derived_speed",
+        "accel",
+        "heading_change",
+        "pred_err",
+        "roll_speed_mean",
+        "roll_speed_std",
+        "roll_step_max",
+        "roll_hdg_std",
+        "roll_pred_err_max",
+        "invalid_obs",
+        "vertical_speed",
+        "alt_jump",
+        "speed_mps",
+        "speed_residual",
+        "abs_speed_residual",
+        "roll_resid_mean",
+        "roll_absresid_mean",
+        "disp_excess_60",
+        "disp_ratio_60",
+        "sat_count",
+        "d_sat",
+        "cn0_dbhz",
+        "d_cn0",
+        "cn0_minus_baseline",
+        "roll_cn0_std"
+      ],
+      "requires": [
+        "timestamp",
+        "lat",
+        "lon",
+        "alt",
+        "speed_mps",
+        "sat_count",
+        "cn0_dbhz"
+      ]
+    }
+  },
+  "models": {
+    "position": {
+      "logistic_regression": {
+        "train": {
+          "precision": 0.764525993883792,
+          "recall": 0.18982536066818528,
+          "f1": 0.30413625304136255,
+          "accuracy": 0.8093333333333333,
+          "false_positive_rate": 0.016442451420029897,
+          "confusion_matrix": {
+            "tn": 55272,
+            "fp": 924,
+            "fn": 12804,
+            "tp": 3000
+          },
+          "n": 72000,
+          "n_positive": 15804,
+          "pr_auc": 0.4094194156861709,
+          "roc_auc": 0.5862064388247095
+        },
+        "val": {
+          "precision": 0.7439372325249644,
+          "recall": 0.19980842911877394,
+          "f1": 0.3150105708245243,
+          "accuracy": 0.811,
+          "false_positive_rate": 0.0191160809371672,
+          "confusion_matrix": {
+            "tn": 18421,
+            "fp": 359,
+            "fn": 4177,
+            "tp": 1043
+          },
+          "n": 24000,
+          "n_positive": 5220,
+          "pr_auc": 0.42051057862650154,
+          "roc_auc": 0.5917326555926865
+        },
+        "test": {
+          "precision": 0.7855227882037533,
+          "recall": 0.2137515958416925,
+          "f1": 0.3360573476702509,
+          "accuracy": 0.8070416666666667,
+          "false_positive_rate": 0.017281417076200248,
+          "confusion_matrix": {
+            "tn": 18197,
+            "fp": 320,
+            "fn": 4311,
+            "tp": 1172
+          },
+          "n": 24000,
+          "n_positive": 5483,
+          "pr_auc": 0.4524160335432611,
+          "roc_auc": 0.6186487485298616
+        },
+        "per_scenario_test": {
+          "consistent_drift": {
+            "kind": "attack",
+            "rows": 1270,
+            "recall": 0.005511811023622047
+          },
+          "drift": {
+            "kind": "attack",
+            "rows": 1640,
+            "recall": 0.007926829268292683
+          },
+          "dropout": {
+            "kind": "not_spoofing",
+            "rows": 1500,
+            "false_positive_rate": 0.015333333333333332
+          },
+          "freeze": {
+            "kind": "attack",
+            "rows": 1037,
+            "recall": 0.9855351976856316
+          },
+          "glitch": {
+            "kind": "not_spoofing",
+            "rows": 2400,
+            "false_positive_rate": 0.022083333333333333
+          },
+          "jump": {
+            "kind": "attack",
+            "rows": 1536,
+            "recall": 0.08463541666666667
+          },
+          "low_sat_noise": {
+            "kind": "not_spoofing",
+            "rows": 1800,
+            "false_positive_rate": 0.020555555555555556
+          },
+          "normal": {
+            "kind": "not_spoofing",
+            "rows": 7200,
+            "false_positive_rate": 0.015277777777777777
+          }
+        },
+        "events_test": {
+          "attacks": {
+            "jump": {
+              "n": 12,
+              "detection_rate": 0.9166666666666666,
+              "median_delay_s": 0.0
+            },
+            "drift": {
+              "n": 10,
+              "detection_rate": 0.5,
+              "median_delay_s": 90.0
+            },
+            "consistent_drift": {
+              "n": 8,
+              "detection_rate": 0.5,
+              "median_delay_s": 45.5
+            },
+            "freeze": {
+              "n": 7,
+              "detection_rate": 1.0,
+              "median_delay_s": 1.0
+            }
+          },
+          "non_attack_flights": {
+            "n": 43,
+            "share_with_any_alert": 0.6744186046511628,
+            "alerts_per_hour": 62.23255813953485
+          }
+        },
+        "kind": "supervised",
+        "params": {
+          "C": 10.0
+        },
+        "threshold": 0.6266488220200727,
+        "threshold_source": "highest recall with false-positive rate <= 2% on the validation split",
+        "calibration_test": {
+          "brier": 0.235491262425804,
+          "ece": 0.2852309690352605,
+          "bins": [
+            {
+              "mean_predicted": 0.022748172878781604,
+              "fraction_positive": 0.06744868035190615,
+              "count": 682
+            },
+            {
+              "mean_predicted": 0.147504669699574,
+              "fraction_positive": 0.192,
+              "count": 125
+            },
+            {
+              "mean_predicted": 0.258500380643853,
+              "fraction_positive": 0.15948275862068967,
+              "count": 232
+            },
+            {
+              "mean_predicted": 0.36826804585666106,
+              "fraction_positive": 0.21338383838383837,
+              "count": 1584
+            },
+            {
+              "mean_predicted": 0.45872820873693737,
+              "fraction_positive": 0.1826427540713255,
+              "count": 9702
+            },
+            {
+              "mean_predicted": 0.5395846030467114,
+              "fraction_positive": 0.20752147496333542,
+              "count": 9546
+            },
+            {
+              "mean_predicted": 0.623201814808754,
+              "fraction_positive": 0.1680327868852459,
+              "count": 976
+            },
+            {
+              "mean_predicted": 0.737163332645044,
+              "fraction_positive": 0.9731543624161074,
+              "count": 1043
+            },
+            {
+              "mean_predicted": 0.830413611903615,
+              "fraction_positive": 0.7142857142857143,
+              "count": 14
+            },
+            {
+              "mean_predicted": 0.9924811063039923,
+              "fraction_positive": 1.0,
+              "count": 96
+            }
+          ]
+        },
+        "timing": {
+          "fit_s": 0.18305182456970215,
+          "predict_ms_per_1000_rows": 0.4653831322987874
+        },
+        "artifact": {
+          "file": "models/position__logistic_regression.joblib",
+          "sha256": "aa9d780782bba1649cf7838ede43b25f1d957df87ca4ac9e0b3b1620e4eb0b1b",
+          "size_bytes": 1871
+        }
+      },
+      "decision_tree": {
+        "train": {
+          "precision": 0.8564554931836408,
+          "recall": 0.27031131359149585,
+          "f1": 0.4109272797229704,
+          "accuracy": 0.8298888888888889,
+          "false_positive_rate": 0.01274112036443875,
+          "confusion_matrix": {
+            "tn": 55480,
+            "fp": 716,
+            "fn": 11532,
+            "tp": 4272
+          },
+          "n": 72000,
+          "n_positive": 15804,
+          "pr_auc": 0.5388951159767121,
+          "roc_auc": 0.7457906805021417
+        },
+        "val": {
+          "precision": 0.7579365079365079,
+          "recall": 0.21954022988505748,
+          "f1": 0.3404634581105169,
+          "accuracy": 0.815,
+          "false_positive_rate": 0.019488817891373803,
+          "confusion_matrix": {
+            "tn": 18414,
+            "fp": 366,
+            "fn": 4074,
+            "tp": 1146
+          },
+          "n": 24000,
+          "n_positive": 5220,
+          "pr_auc": 0.4352553746671084,
+          "roc_auc": 0.6181269407007536
+        },
+        "test": {
+          "precision": 0.7310880829015544,
+          "recall": 0.2573408717855189,
+          "f1": 0.38068258464859034,
+          "accuracy": 0.8087083333333334,
+          "false_positive_rate": 0.02802829832046228,
+          "confusion_matrix": {
+            "tn": 17998,
+            "fp": 519,
+            "fn": 4072,
+            "tp": 1411
+          },
+          "n": 24000,
+          "n_positive": 5483,
+          "pr_auc": 0.47832221537321623,
+          "roc_auc": 0.6577513477936305
+        },
+        "per_scenario_test": {
+          "consistent_drift": {
+            "kind": "attack",
+            "rows": 1270,
+            "recall": 0.07322834645669292
+          },
+          "drift": {
+            "kind": "attack",
+            "rows": 1640,
+            "recall": 0.09390243902439024
+          },
+          "dropout": {
+            "kind": "not_spoofing",
+            "rows": 1500,
+            "false_positive_rate": 0.024
+          },
+          "freeze": {
+            "kind": "attack",
+            "rows": 1037,
+            "recall": 0.9932497589199615
+          },
+          "glitch": {
+            "kind": "not_spoofing",
+            "rows": 2400,
+            "false_positive_rate": 0.017083333333333332
+          },
+          "jump": {
+            "kind": "attack",
+            "rows": 1536,
+            "recall": 0.08723958333333333
+          },
+          "low_sat_noise": {
+            "kind": "not_spoofing",
+            "rows": 1800,
+            "false_positive_rate": 0.022222222222222223
+          },
+          "normal": {
+            "kind": "not_spoofing",
+            "rows": 7200,
+            "false_positive_rate": 0.03305555555555555
+          }
+        },
+        "events_test": {
+          "attacks": {
+            "jump": {
+              "n": 12,
+              "detection_rate": 0.9166666666666666,
+              "median_delay_s": 0.0
+            },
+            "drift": {
+              "n": 10,
+              "detection_rate": 0.6,
+              "median_delay_s": 26.0
+            },
+            "consistent_drift": {
+              "n": 8,
+              "detection_rate": 0.75,
+              "median_delay_s": 35.0
+            },
+            "freeze": {
+              "n": 7,
+              "detection_rate": 1.0,
+              "median_delay_s": 1.0
+            }
+          },
+          "non_attack_flights": {
+            "n": 43,
+            "share_with_any_alert": 0.8372093023255814,
+            "alerts_per_hour": 99.0697674418604
+          }
+        },
+        "kind": "supervised",
+        "params": {
+          "max_depth": 12
+        },
+        "threshold": 0.768451773972362,
+        "threshold_source": "highest recall with false-positive rate <= 2% on the validation split",
+        "calibration_test": {
+          "brier": 0.21294875807297703,
+          "ece": 0.23154947529997394,
+          "bins": [
+            {
+              "mean_predicted": 0.011634931183588656,
+              "fraction_positive": 0.09381850065760632,
+              "count": 2281
+            },
+            {
+              "mean_predicted": 0.130059873669166,
+              "fraction_positive": 0.20881226053639848,
+              "count": 1044
+            },
+            {
+              "mean_predicted": 0.24084641727182862,
+              "fraction_positive": 0.1731967943009795,
+              "count": 2246
+            },
+            {
+              "mean_predicted": 0.358328965161104,
+              "fraction_positive": 0.189159891598916,
+              "count": 1845
+            },
+            {
+              "mean_predicted": 0.4734324251425654,
+              "fraction_positive": 0.1906618486116394,
+              "count": 10516
+            },
+            {
+              "mean_predicted": 0.5506124705366556,
+              "fraction_positive": 0.2255306603773585,
+              "count": 3392
+            },
+            {
+              "mean_predicted": 0.6150711752142541,
+              "fraction_positive": 0.1887905604719764,
+              "count": 678
+            },
+            {
+              "mean_predicted": 0.7686244997115577,
+              "fraction_positive": 0.2204724409448819,
+              "count": 254
+            },
+            {
+              "mean_predicted": 0.8445791318781234,
+              "fraction_positive": 0.25748502994011974,
+              "count": 334
+            },
+            {
+              "mean_predicted": 0.9899432672313043,
+              "fraction_positive": 0.9028368794326241,
+              "count": 1410
+            }
+          ]
+        },
+        "timing": {
+          "fit_s": 0.9675073623657227,
+          "predict_ms_per_1000_rows": 0.3654062747955322
+        },
+        "artifact": {
+          "file": "models/position__decision_tree.joblib",
+          "sha256": "2083f0c40bea7dcbd22a74df36b5cc8839eae221940b85d896566cfe1232305b",
+          "size_bytes": 18148
+        }
+      },
+      "random_forest": {
+        "train": {
+          "precision": 0.7878092741274783,
+          "recall": 0.3042267780308783,
+          "f1": 0.4389464554708541,
+          "accuracy": 0.8292916666666666,
+          "false_positive_rate": 0.023044344793223717,
+          "confusion_matrix": {
+            "tn": 54901,
+            "fp": 1295,
+            "fn": 10996,
+            "tp": 4808
+          },
+          "n": 72000,
+          "n_positive": 15804,
+          "pr_auc": 0.6167830756636696,
+          "roc_auc": 0.7952760227027654
+        },
+        "val": {
+          "precision": 0.7689345314505777,
+          "recall": 0.22950191570881226,
+          "f1": 0.3534966066686338,
+          "accuracy": 0.8174166666666667,
+          "false_positive_rate": 0.019169329073482427,
+          "confusion_matrix": {
+            "tn": 18420,
+            "fp": 360,
+            "fn": 4022,
+            "tp": 1198
+          },
+          "n": 24000,
+          "n_positive": 5220,
+          "pr_auc": 0.45108021314368313,
+          "roc_auc": 0.6240416151526651
+        },
+        "test": {
+          "precision": 0.6552930883639545,
+          "recall": 0.2732080977567025,
+          "f1": 0.3856352168876303,
+          "accuracy": 0.801125,
+          "false_positive_rate": 0.042555489550143114,
+          "confusion_matrix": {
+            "tn": 17729,
+            "fp": 788,
+            "fn": 3985,
+            "tp": 1498
+          },
+          "n": 24000,
+          "n_positive": 5483,
+          "pr_auc": 0.5083329309017999,
+          "roc_auc": 0.6721787889142019
+        },
+        "per_scenario_test": {
+          "consistent_drift": {
+            "kind": "attack",
+            "rows": 1270,
+            "recall": 0.1377952755905512
+          },
+          "drift": {
+            "kind": "attack",
+            "rows": 1640,
+            "recall": 0.09451219512195122
+          },
+          "dropout": {
+            "kind": "not_spoofing",
+            "rows": 1500,
+            "false_positive_rate": 0.024666666666666667
+          },
+          "freeze": {
+            "kind": "attack",
+            "rows": 1037,
+            "recall": 0.9932497589199615
+          },
+          "glitch": {
+            "kind": "not_spoofing",
+            "rows": 2400,
+            "false_positive_rate": 0.013333333333333334
+          },
+          "jump": {
+            "kind": "attack",
+            "rows": 1536,
+            "recall": 0.08984375
+          },
+          "low_sat_noise": {
+            "kind": "not_spoofing",
+            "rows": 1800,
+            "false_positive_rate": 0.04
+          },
+          "normal": {
+            "kind": "not_spoofing",
+            "rows": 7200,
+            "false_positive_rate": 0.06152777777777778
+          }
+        },
+        "events_test": {
+          "attacks": {
+            "jump": {
+              "n": 12,
+              "detection_rate": 0.9166666666666666,
+              "median_delay_s": 0.0
+            },
+            "drift": {
+              "n": 10,
+              "detection_rate": 0.7,
+              "median_delay_s": 22.0
+            },
+            "consistent_drift": {
+              "n": 8,
+              "detection_rate": 1.0,
+              "median_delay_s": 16.5
+            },
+            "freeze": {
+              "n": 7,
+              "detection_rate": 1.0,
+              "median_delay_s": 1.0
+            }
+          },
+          "non_attack_flights": {
+            "n": 43,
+            "share_with_any_alert": 0.627906976744186,
+            "alerts_per_hour": 162.97674418604643
+          }
+        },
+        "kind": "supervised",
+        "params": {
+          "min_samples_leaf": 50
+        },
+        "threshold": 0.5630166897259248,
+        "threshold_source": "highest recall with false-positive rate <= 2% on the validation split",
+        "calibration_test": {
+          "brier": 0.19848658951509296,
+          "ece": 0.212750273593539,
+          "bins": [
+            {
+              "mean_predicted": 0.029330732554897192,
+              "fraction_positive": 0.015174506828528073,
+              "count": 659
+            },
+            {
+              "mean_predicted": 0.16827195025283145,
+              "fraction_positive": 0.07785467128027682,
+              "count": 578
+            },
+            {
+              "mean_predicted": 0.260535975443762,
+              "fraction_positive": 0.17306002928257685,
+              "count": 3415
+            },
+            {
+              "mean_predicted": 0.35014110050953867,
+              "fraction_positive": 0.1608159392789374,
+              "count": 4216
+            },
+            {
+              "mean_predicted": 0.4587693236214194,
+              "fraction_positive": 0.18599763562327598,
+              "count": 7613
+            },
+            {
+              "mean_predicted": 0.5284944979607333,
+              "fraction_positive": 0.23778048356235867,
+              "count": 5749
+            },
+            {
+              "mean_predicted": 0.6429310242762781,
+              "fraction_positive": 0.40897097625329815,
+              "count": 379
+            },
+            {
+              "mean_predicted": 0.7504260690869631,
+              "fraction_positive": 0.4107142857142857,
+              "count": 168
+            },
+            {
+              "mean_predicted": 0.8355187098511646,
+              "fraction_positive": 0.32,
+              "count": 100
+            },
+            {
+              "mean_predicted": 0.9953061869475484,
+              "fraction_positive": 0.9973285841495992,
+              "count": 1123
+            }
+          ]
+        },
+        "timing": {
+          "fit_s": 10.393202543258667,
+          "predict_ms_per_1000_rows": 4.182606935501099
+        },
+        "artifact": {
+          "file": "models/position__random_forest.joblib",
+          "sha256": "9af558bbb84805eb3a2d92ec01a5be423547ccdc2742eb57f85b644ba56859b0",
+          "size_bytes": 2141581
+        }
+      },
+      "gaussian_nb": {
+        "train": {
+          "precision": 0.710126897238119,
+          "recall": 0.18058719311566693,
+          "f1": 0.2879483428340816,
+          "accuracy": 0.8039583333333333,
+          "false_positive_rate": 0.02073101288347925,
+          "confusion_matrix": {
+            "tn": 55031,
+            "fp": 1165,
+            "fn": 12950,
+            "tp": 2854
+          },
+          "n": 72000,
+          "n_positive": 15804,
+          "pr_auc": 0.36646915441579037,
+          "roc_auc": 0.6081937729372875
+        },
+        "val": {
+          "precision": 0.7186796699174793,
+          "recall": 0.1835249042145594,
+          "f1": 0.2923851670990386,
+          "accuracy": 0.8067916666666667,
+          "false_positive_rate": 0.019968051118210862,
+          "confusion_matrix": {
+            "tn": 18405,
+            "fp": 375,
+            "fn": 4262,
+            "tp": 958
+          },
+          "n": 24000,
+          "n_positive": 5220,
+          "pr_auc": 0.3712246619157939,
+          "roc_auc": 0.6072877215102068
+        },
+        "test": {
+          "precision": 0.6950840074673305,
+          "recall": 0.20372059091738098,
+          "f1": 0.3150916784203103,
+          "accuracy": 0.7976666666666666,
+          "false_positive_rate": 0.02646216989793163,
+          "confusion_matrix": {
+            "tn": 18027,
+            "fp": 490,
+            "fn": 4366,
+            "tp": 1117
+          },
+          "n": 24000,
+          "n_positive": 5483,
+          "pr_auc": 0.3552449631333121,
+          "roc_auc": 0.5725108930024729
+        },
+        "per_scenario_test": {
+          "consistent_drift": {
+            "kind": "attack",
+            "rows": 1270,
+            "recall": 0.0
+          },
+          "drift": {
+            "kind": "attack",
+            "rows": 1640,
+            "recall": 0.0
+          },
+          "dropout": {
+            "kind": "not_spoofing",
+            "rows": 1500,
+            "false_positive_rate": 0.024
+          },
+          "freeze": {
+            "kind": "attack",
+            "rows": 1037,
+            "recall": 0.9498553519768563
+          },
+          "glitch": {
+            "kind": "not_spoofing",
+            "rows": 2400,
+            "false_positive_rate": 0.18833333333333332
+          },
+          "jump": {
+            "kind": "attack",
+            "rows": 1536,
+            "recall": 0.0859375
+          },
+          "low_sat_noise": {
+            "kind": "not_spoofing",
+            "rows": 1800,
+            "false_positive_rate": 0.0
+          },
+          "normal": {
+            "kind": "not_spoofing",
+            "rows": 7200,
+            "false_positive_rate": 0.0002777777777777778
+          }
+        },
+        "events_test": {
+          "attacks": {
+            "jump": {
+              "n": 12,
+              "detection_rate": 1.0,
+              "median_delay_s": 0.0
+            },
+            "drift": {
+              "n": 10,
+              "detection_rate": 0.0,
+              "median_delay_s": null
+            },
+            "consistent_drift": {
+              "n": 8,
+              "detection_rate": 0.0,
+              "median_delay_s": null
+            },
+            "freeze": {
+              "n": 7,
+              "detection_rate": 1.0,
+              "median_delay_s": 7.0
+            }
+          },
+          "non_attack_flights": {
+            "n": 43,
+            "share_with_any_alert": 0.3023255813953488,
+            "alerts_per_hour": 136.74418604651154
+          }
+        },
+        "kind": "supervised",
+        "params": {},
+        "threshold": 0.0003285461746126526,
+        "threshold_source": "highest recall with false-positive rate <= 2% on the validation split",
+        "calibration_test": {
+          "brier": 0.23983954871288,
+          "ece": 0.23984254861012694,
+          "bins": [
+            {
+              "mean_predicted": 0.0001907818047211331,
+              "fraction_positive": 0.22820108301709802,
+              "count": 23453
+            },
+            {
+              "mean_predicted": 0.1385669011257532,
+              "fraction_positive": 0.0,
+              "count": 5
+            },
+            {
+              "mean_predicted": 0.22217187285961598,
+              "fraction_positive": 0.0,
+              "count": 1
+            },
+            {
+              "mean_predicted": 0.3824474990287501,
+              "fraction_positive": 0.0,
+              "count": 2
+            },
+            {
+              "mean_predicted": 0.5690319906110209,
+              "fraction_positive": 0.0,
+              "count": 1
+            },
+            {
+              "mean_predicted": 0.9989714478476102,
+              "fraction_positive": 0.24349442379182157,
+              "count": 538
+            }
+          ]
+        },
+        "timing": {
+          "fit_s": 0.09972333908081055,
+          "predict_ms_per_1000_rows": 0.35547216733296716
+        },
+        "artifact": {
+          "file": "models/position__gaussian_nb.joblib",
+          "sha256": "20a124637e9eb27591afe999aa83054c1788050c8185651f7e39d8263ccc34dc",
+          "size_bytes": 1611
+        }
+      },
+      "isolation_forest": {
+        "train": {
+          "precision": 0.20214871359909528,
+          "recall": 0.04524171095925082,
+          "f1": 0.07393619771469934,
+          "accuracy": 0.7512361111111111,
+          "false_positive_rate": 0.0502170973022991,
+          "confusion_matrix": {
+            "tn": 53374,
+            "fp": 2822,
+            "fn": 15089,
+            "tp": 715
+          },
+          "n": 72000,
+          "n_positive": 15804,
+          "pr_auc": 0.2995489504948562,
+          "roc_auc": 0.5749704451502217
+        },
+        "val": {
+          "precision": 0.224977856510186,
+          "recall": 0.04865900383141762,
+          "f1": 0.08001260040951332,
+          "accuracy": 0.756625,
+          "false_positive_rate": 0.04659211927582534,
+          "confusion_matrix": {
+            "tn": 17905,
+            "fp": 875,
+            "fn": 4966,
+            "tp": 254
+          },
+          "n": 24000,
+          "n_positive": 5220,
+          "pr_auc": 0.3072096441766506,
+          "roc_auc": 0.5760916633004052
+        },
+        "test": {
+          "precision": 0.2659846547314578,
+          "recall": 0.05690315520700347,
+          "f1": 0.09375,
+          "accuracy": 0.7486666666666667,
+          "false_positive_rate": 0.046497812820651296,
+          "confusion_matrix": {
+            "tn": 17656,
+            "fp": 861,
+            "fn": 5171,
+            "tp": 312
+          },
+          "n": 24000,
+          "n_positive": 5483,
+          "pr_auc": 0.3270914204359726,
+          "roc_auc": 0.5713344671538281
+        },
+        "per_scenario_test": {
+          "consistent_drift": {
+            "kind": "attack",
+            "rows": 1270,
+            "recall": 0.007086614173228346
+          },
+          "drift": {
+            "kind": "attack",
+            "rows": 1640,
+            "recall": 0.07195121951219512
+          },
+          "dropout": {
+            "kind": "not_spoofing",
+            "rows": 1500,
+            "false_positive_rate": 0.013333333333333334
+          },
+          "freeze": {
+            "kind": "attack",
+            "rows": 1037,
+            "recall": 0.05689488910318226
+          },
+          "glitch": {
+            "kind": "not_spoofing",
+            "rows": 2400,
+            "false_positive_rate": 0.20958333333333334
+          },
+          "jump": {
+            "kind": "attack",
+            "rows": 1536,
+            "recall": 0.08203125
+          },
+          "low_sat_noise": {
+            "kind": "not_spoofing",
+            "rows": 1800,
+            "false_positive_rate": 0.11611111111111111
+          },
+          "normal": {
+            "kind": "not_spoofing",
+            "rows": 7200,
+            "false_positive_rate": 0.012777777777777779
+          }
+        },
+        "events_test": {
+          "attacks": {
+            "jump": {
+              "n": 12,
+              "detection_rate": 1.0,
+              "median_delay_s": 0.0
+            },
+            "drift": {
+              "n": 10,
+              "detection_rate": 0.5,
+              "median_delay_s": 21.0
+            },
+            "consistent_drift": {
+              "n": 8,
+              "detection_rate": 0.25,
+              "median_delay_s": 33.0
+            },
+            "freeze": {
+              "n": 7,
+              "detection_rate": 1.0,
+              "median_delay_s": 1.0
+            }
+          },
+          "non_attack_flights": {
+            "n": 43,
+            "share_with_any_alert": 0.7674418604651163,
+            "alerts_per_hour": 229.9534883720929
+          }
+        },
+        "kind": "unsupervised_anomaly",
+        "params": {
+          "n_estimators": 200
+        },
+        "threshold": 0.1075665949923576,
+        "threshold_source": "99th percentile of anomaly scores on normal training flights (no labels)",
+        "timing": {
+          "fit_s": 0.3813033103942871
+        },
+        "artifact": {
+          "file": "models/position__isolation_forest.joblib",
+          "sha256": "9a816b5f7986fca573b8bb48512deb32c675cc810484b59c76046eb2e2fee387",
+          "size_bytes": 673456
+        }
+      }
+    },
+    "kinematic": {
+      "logistic_regression": {
+        "train": {
+          "precision": 0.8006402793946449,
+          "recall": 0.3481397114654518,
+          "f1": 0.485270770859058,
+          "accuracy": 0.8378888888888889,
+          "false_positive_rate": 0.024378959356537833,
+          "confusion_matrix": {
+            "tn": 54826,
+            "fp": 1370,
+            "fn": 10302,
+            "tp": 5502
+          },
+          "n": 72000,
+          "n_positive": 15804,
+          "pr_auc": 0.5788107207366417,
+          "roc_auc": 0.7175910252396254
+        },
+        "val": {
+          "precision": 0.8198547215496368,
+          "recall": 0.3243295019157088,
+          "f1": 0.46479066575154426,
+          "accuracy": 0.8375416666666666,
+          "false_positive_rate": 0.019808306709265176,
+          "confusion_matrix": {
+            "tn": 18408,
+            "fp": 372,
+            "fn": 3527,
+            "tp": 1693
+          },
+          "n": 24000,
+          "n_positive": 5220,
+          "pr_auc": 0.5539410604056705,
+          "roc_auc": 0.6934419207684053
+        },
+        "test": {
+          "precision": 0.7443639291465378,
+          "recall": 0.33722414736458145,
+          "f1": 0.46416467930212124,
+          "accuracy": 0.822125,
+          "false_positive_rate": 0.034292812010584865,
+          "confusion_matrix": {
+            "tn": 17882,
+            "fp": 635,
+            "fn": 3634,
+            "tp": 1849
+          },
+          "n": 24000,
+          "n_positive": 5483,
+          "pr_auc": 0.5664261423367585,
+          "roc_auc": 0.7100290576918681
+        },
+        "per_scenario_test": {
+          "consistent_drift": {
+            "kind": "attack",
+            "rows": 1270,
+            "recall": 0.01811023622047244
+          },
+          "drift": {
+            "kind": "attack",
+            "rows": 1640,
+            "recall": 0.1329268292682927
+          },
+          "dropout": {
+            "kind": "not_spoofing",
+            "rows": 1500,
+            "false_positive_rate": 0.054
+          },
+          "freeze": {
+            "kind": "attack",
+            "rows": 1037,
+            "recall": 0.9893924783027965
+          },
+          "glitch": {
+            "kind": "not_spoofing",
+            "rows": 2400,
+            "false_positive_rate": 0.021666666666666667
+          },
+          "jump": {
+            "kind": "attack",
+            "rows": 1536,
+            "recall": 0.37890625
+          },
+          "low_sat_noise": {
+            "kind": "not_spoofing",
+            "rows": 1800,
+            "false_positive_rate": 0.023333333333333334
+          },
+          "normal": {
+            "kind": "not_spoofing",
+            "rows": 7200,
+            "false_positive_rate": 0.043472222222222225
+          }
+        },
+        "events_test": {
+          "attacks": {
+            "jump": {
+              "n": 12,
+              "detection_rate": 0.9166666666666666,
+              "median_delay_s": 0.0
+            },
+            "drift": {
+              "n": 10,
+              "detection_rate": 0.8,
+              "median_delay_s": 40.0
+            },
+            "consistent_drift": {
+              "n": 8,
+              "detection_rate": 0.625,
+              "median_delay_s": 59.0
+            },
+            "freeze": {
+              "n": 7,
+              "detection_rate": 1.0,
+              "median_delay_s": 1.0
+            }
+          },
+          "non_attack_flights": {
+            "n": 43,
+            "share_with_any_alert": 0.6046511627906976,
+            "alerts_per_hour": 136.18604651162784
+          }
+        },
+        "kind": "supervised",
+        "params": {
+          "C": 10.0
+        },
+        "threshold": 0.5975751861597512,
+        "threshold_source": "highest recall with false-positive rate <= 2% on the validation split",
+        "calibration_test": {
+          "brier": 0.1948050650070379,
+          "ece": 0.23058462681852165,
+          "bins": [
+            {
+              "mean_predicted": 0.0469929127476675,
+              "fraction_positive": 0.026004728132387706,
+              "count": 423
+            },
+            {
+              "mean_predicted": 0.15518370402468593,
+              "fraction_positive": 0.12026726057906459,
+              "count": 449
+            },
+            {
+              "mean_predicted": 0.2608325026363883,
+              "fraction_positive": 0.1091188524590164,
+              "count": 1952
+            },
+            {
+              "mean_predicted": 0.35678045508038675,
+              "fraction_positive": 0.13423624207097548,
+              "count": 5833
+            },
+            {
+              "mean_predicted": 0.44946017066473004,
+              "fraction_positive": 0.19130123073246505,
+              "count": 8369
+            },
+            {
+              "mean_predicted": 0.5403062962020966,
+              "fraction_positive": 0.21700815157523684,
+              "count": 4539
+            },
+            {
+              "mean_predicted": 0.6321448105380267,
+              "fraction_positive": 0.3498789346246973,
+              "count": 826
+            },
+            {
+              "mean_predicted": 0.7484844213486757,
+              "fraction_positive": 0.8741721854304636,
+              "count": 151
+            },
+            {
+              "mean_predicted": 0.840569907959514,
+              "fraction_positive": 0.9574468085106383,
+              "count": 94
+            },
+            {
+              "mean_predicted": 0.9890988105044279,
+              "fraction_positive": 0.9714076246334311,
+              "count": 1364
+            }
+          ]
+        },
+        "timing": {
+          "fit_s": 0.5792527198791504,
+          "predict_ms_per_1000_rows": 0.43007731437683105
+        },
+        "artifact": {
+          "file": "models/kinematic__logistic_regression.joblib",
+          "sha256": "661d79e8a73c2953aaaf4ca74b22452ea12113c619ff40387b2fa35042a7552c",
+          "size_bytes": 2497
+        }
+      },
+      "decision_tree": {
+        "train": {
+          "precision": 0.9339294008360427,
+          "recall": 0.5089217919514047,
+          "f1": 0.6588302752293578,
+          "accuracy": 0.8843055555555556,
+          "false_positive_rate": 0.010125275820343085,
+          "confusion_matrix": {
+            "tn": 55627,
+            "fp": 569,
+            "fn": 7761,
+            "tp": 8043
+          },
+          "n": 72000,
+          "n_positive": 15804,
+          "pr_auc": 0.7785544272398857,
+          "roc_auc": 0.8812720517104335
+        },
+        "val": {
+          "precision": 0.8644004482629809,
+          "recall": 0.44329501915708813,
+          "f1": 0.5860453336710143,
+          "accuracy": 0.8637916666666666,
+          "false_positive_rate": 0.019329073482428114,
+          "confusion_matrix": {
+            "tn": 18417,
+            "fp": 363,
+            "fn": 2906,
+            "tp": 2314
+          },
+          "n": 24000,
+          "n_positive": 5220,
+          "pr_auc": 0.6435860600270876,
+          "roc_auc": 0.7630694541351972
+        },
+        "test": {
+          "precision": 0.855444908448442,
+          "recall": 0.48568302024439175,
+          "f1": 0.6195905072126571,
+          "accuracy": 0.86375,
+          "false_positive_rate": 0.0243019927634066,
+          "confusion_matrix": {
+            "tn": 18067,
+            "fp": 450,
+            "fn": 2820,
+            "tp": 2663
+          },
+          "n": 24000,
+          "n_positive": 5483,
+          "pr_auc": 0.6818510946460696,
+          "roc_auc": 0.7873666346458392
+        },
+        "per_scenario_test": {
+          "consistent_drift": {
+            "kind": "attack",
+            "rows": 1270,
+            "recall": 0.03464566929133858
+          },
+          "drift": {
+            "kind": "attack",
+            "rows": 1640,
+            "recall": 0.5634146341463414
+          },
+          "dropout": {
+            "kind": "not_spoofing",
+            "rows": 1500,
+            "false_positive_rate": 0.024666666666666667
+          },
+          "freeze": {
+            "kind": "attack",
+            "rows": 1037,
+            "recall": 0.9922854387656702
+          },
+          "glitch": {
+            "kind": "not_spoofing",
+            "rows": 2400,
+            "false_positive_rate": 0.0275
+          },
+          "jump": {
+            "kind": "attack",
+            "rows": 1536,
+            "recall": 0.43359375
+          },
+          "low_sat_noise": {
+            "kind": "not_spoofing",
+            "rows": 1800,
+            "false_positive_rate": 0.021666666666666667
+          },
+          "normal": {
+            "kind": "not_spoofing",
+            "rows": 7200,
+            "false_positive_rate": 0.02736111111111111
+          }
+        },
+        "events_test": {
+          "attacks": {
+            "jump": {
+              "n": 12,
+              "detection_rate": 1.0,
+              "median_delay_s": 0.0
+            },
+            "drift": {
+              "n": 10,
+              "detection_rate": 1.0,
+              "median_delay_s": 5.0
+            },
+            "consistent_drift": {
+              "n": 8,
+              "detection_rate": 0.875,
+              "median_delay_s": 21.0
+            },
+            "freeze": {
+              "n": 7,
+              "detection_rate": 1.0,
+              "median_delay_s": 1.0
+            }
+          },
+          "non_attack_flights": {
+            "n": 43,
+            "share_with_any_alert": 0.9767441860465116,
+            "alerts_per_hour": 94.60465116279065
+          }
+        },
+        "kind": "supervised",
+        "params": {
+          "max_depth": 12
+        },
+        "threshold": 0.8148981026001407,
+        "threshold_source": "highest recall with false-positive rate <= 2% on the validation split",
+        "calibration_test": {
+          "brier": 0.1588859574019724,
+          "ece": 0.16760083746556462,
+          "bins": [
+            {
+              "mean_predicted": 0.0272647933522971,
+              "fraction_positive": 0.06619878603945371,
+              "count": 5272
+            },
+            {
+              "mean_predicted": 0.18098023931251822,
+              "fraction_positive": 0.10687022900763359,
+              "count": 2358
+            },
+            {
+              "mean_predicted": 0.2527128244295975,
+              "fraction_positive": 0.19099705511148507,
+              "count": 2377
+            },
+            {
+              "mean_predicted": 0.33962474528993636,
+              "fraction_positive": 0.13004674883127923,
+              "count": 4706
+            },
+            {
+              "mean_predicted": 0.4581104276795761,
+              "fraction_positive": 0.20315821439416945,
+              "count": 3293
+            },
+            {
+              "mean_predicted": 0.5548740739671549,
+              "fraction_positive": 0.16216216216216217,
+              "count": 1739
+            },
+            {
+              "mean_predicted": 0.6689214861987155,
+              "fraction_positive": 0.21372031662269128,
+              "count": 379
+            },
+            {
+              "mean_predicted": 0.7367803841172518,
+              "fraction_positive": 0.16005665722379603,
+              "count": 706
+            },
+            {
+              "mean_predicted": 0.8493391157093191,
+              "fraction_positive": 0.34765625,
+              "count": 512
+            },
+            {
+              "mean_predicted": 0.9945081925309852,
+              "fraction_positive": 0.9379232505643341,
+              "count": 2658
+            }
+          ]
+        },
+        "timing": {
+          "fit_s": 1.744837760925293,
+          "predict_ms_per_1000_rows": 0.3428459167480469
+        },
+        "artifact": {
+          "file": "models/kinematic__decision_tree.joblib",
+          "sha256": "6852d3e93fdd2337e7458aba745544ceb2c995c70b8bffb5a3c71f6b609e7bea",
+          "size_bytes": 27305
+        }
+      },
+      "random_forest": {
+        "train": {
+          "precision": 0.8979063241959854,
+          "recall": 0.5264490002531005,
+          "f1": 0.6637415237335461,
+          "accuracy": 0.8829166666666667,
+          "false_positive_rate": 0.016833938358602037,
+          "confusion_matrix": {
+            "tn": 55250,
+            "fp": 946,
+            "fn": 7484,
+            "tp": 8320
+          },
+          "n": 72000,
+          "n_positive": 15804,
+          "pr_auc": 0.8058135277982027,
+          "roc_auc": 0.9015607754894964
+        },
+        "val": {
+          "precision": 0.8661192431274545,
+          "recall": 0.4647509578544061,
+          "f1": 0.6049121057224784,
+          "accuracy": 0.8679583333333334,
+          "false_positive_rate": 0.019968051118210862,
+          "confusion_matrix": {
+            "tn": 18405,
+            "fp": 375,
+            "fn": 2794,
+            "tp": 2426
+          },
+          "n": 24000,
+          "n_positive": 5220,
+          "pr_auc": 0.6646428021719453,
+          "roc_auc": 0.7632635497125417
+        },
+        "test": {
+          "precision": 0.858499234303216,
+          "recall": 0.5112164873244575,
+          "f1": 0.6408321902149062,
+          "accuracy": 0.8690833333333333,
+          "false_positive_rate": 0.02495004590376411,
+          "confusion_matrix": {
+            "tn": 18055,
+            "fp": 462,
+            "fn": 2680,
+            "tp": 2803
+          },
+          "n": 24000,
+          "n_positive": 5483,
+          "pr_auc": 0.7187928618687728,
+          "roc_auc": 0.8138788150279974
+        },
+        "per_scenario_test": {
+          "consistent_drift": {
+            "kind": "attack",
+            "rows": 1270,
+            "recall": 0.04173228346456693
+          },
+          "drift": {
+            "kind": "attack",
+            "rows": 1640,
+            "recall": 0.6378048780487805
+          },
+          "dropout": {
+            "kind": "not_spoofing",
+            "rows": 1500,
+            "false_positive_rate": 0.028
+          },
+          "freeze": {
+            "kind": "attack",
+            "rows": 1037,
+            "recall": 0.9932497589199615
+          },
+          "glitch": {
+            "kind": "not_spoofing",
+            "rows": 2400,
+            "false_positive_rate": 0.0275
+          },
+          "jump": {
+            "kind": "attack",
+            "rows": 1536,
+            "recall": 0.4388020833333333
+          },
+          "low_sat_noise": {
+            "kind": "not_spoofing",
+            "rows": 1800,
+            "false_positive_rate": 0.023333333333333334
+          },
+          "normal": {
+            "kind": "not_spoofing",
+            "rows": 7200,
+            "false_positive_rate": 0.025277777777777777
+          }
+        },
+        "events_test": {
+          "attacks": {
+            "jump": {
+              "n": 12,
+              "detection_rate": 0.9166666666666666,
+              "median_delay_s": 0.0
+            },
+            "drift": {
+              "n": 10,
+              "detection_rate": 1.0,
+              "median_delay_s": 4.5
+            },
+            "consistent_drift": {
+              "n": 8,
+              "detection_rate": 1.0,
+              "median_delay_s": 35.5
+            },
+            "freeze": {
+              "n": 7,
+              "detection_rate": 1.0,
+              "median_delay_s": 1.0
+            }
+          },
+          "non_attack_flights": {
+            "n": 43,
+            "share_with_any_alert": 0.9069767441860465,
+            "alerts_per_hour": 92.65116279069763
+          }
+        },
+        "kind": "supervised",
+        "params": {
+          "min_samples_leaf": 50
+        },
+        "threshold": 0.5316972682017798,
+        "threshold_source": "highest recall with false-positive rate <= 2% on the validation split",
+        "calibration_test": {
+          "brier": 0.14032071418624886,
+          "ece": 0.17097798237072154,
+          "bins": [
+            {
+              "mean_predicted": 0.05556365728424816,
+              "fraction_positive": 0.023842917251051893,
+              "count": 1426
+            },
+            {
+              "mean_predicted": 0.15205393070105855,
+              "fraction_positive": 0.06391526661796933,
+              "count": 2738
+            },
+            {
+              "mean_predicted": 0.2548850969114309,
+              "fraction_positive": 0.0867983367983368,
+              "count": 3848
+            },
+            {
+              "mean_predicted": 0.3526737778167455,
+              "fraction_positive": 0.14433327866163687,
+              "count": 6097
+            },
+            {
+              "mean_predicted": 0.4431686416777946,
+              "fraction_positive": 0.18918471969571687,
+              "count": 6047
+            },
+            {
+              "mean_predicted": 0.5320655781559087,
+              "fraction_positive": 0.2413793103448276,
+              "count": 986
+            },
+            {
+              "mean_predicted": 0.6452737114599955,
+              "fraction_positive": 0.4659090909090909,
+              "count": 176
+            },
+            {
+              "mean_predicted": 0.7553138694495589,
+              "fraction_positive": 0.8648648648648649,
+              "count": 185
+            },
+            {
+              "mean_predicted": 0.8547869305409318,
+              "fraction_positive": 0.8714285714285714,
+              "count": 280
+            },
+            {
+              "mean_predicted": 0.9792909066387383,
+              "fraction_positive": 0.98872350022553,
+              "count": 2217
+            }
+          ]
+        },
+        "timing": {
+          "fit_s": 11.659413576126099,
+          "predict_ms_per_1000_rows": 3.998686869939168
+        },
+        "artifact": {
+          "file": "models/kinematic__random_forest.joblib",
+          "sha256": "9a06730f4f93b7ca1d2811efb1d93891ed215bb05d45b987696c26df95309934",
+          "size_bytes": 2300230
+        }
+      },
+      "gaussian_nb": {
+        "train": {
+          "precision": 0.6972343522561864,
+          "recall": 0.2121614781068084,
+          "f1": 0.3253286760782031,
+          "accuracy": 0.8068472222222223,
+          "false_positive_rate": 0.025909317389138018,
+          "confusion_matrix": {
+            "tn": 54740,
+            "fp": 1456,
+            "fn": 12451,
+            "tp": 3353
+          },
+          "n": 72000,
+          "n_positive": 15804,
+          "pr_auc": 0.4497588847516223,
+          "roc_auc": 0.6984042367334244
+        },
+        "val": {
+          "precision": 0.7452445652173914,
+          "recall": 0.21015325670498083,
+          "f1": 0.32785415421398684,
+          "accuracy": 0.8125833333333333,
+          "false_positive_rate": 0.019968051118210862,
+          "confusion_matrix": {
+            "tn": 18405,
+            "fp": 375,
+            "fn": 4123,
+            "tp": 1097
+          },
+          "n": 24000,
+          "n_positive": 5220,
+          "pr_auc": 0.406402968977875,
+          "roc_auc": 0.6256331631841161
+        },
+        "test": {
+          "precision": 0.6666666666666666,
+          "recall": 0.2137515958416925,
+          "f1": 0.32371219444828064,
+          "accuracy": 0.7959583333333333,
+          "false_positive_rate": 0.03164659502079171,
+          "confusion_matrix": {
+            "tn": 17931,
+            "fp": 586,
+            "fn": 4311,
+            "tp": 1172
+          },
+          "n": 24000,
+          "n_positive": 5483,
+          "pr_auc": 0.4314683937273952,
+          "roc_auc": 0.6606211271607694
+        },
+        "per_scenario_test": {
+          "consistent_drift": {
+            "kind": "attack",
+            "rows": 1270,
+            "recall": 0.006299212598425197
+          },
+          "drift": {
+            "kind": "attack",
+            "rows": 1640,
+            "recall": 0.0
+          },
+          "dropout": {
+            "kind": "not_spoofing",
+            "rows": 1500,
+            "false_positive_rate": 0.006666666666666667
+          },
+          "freeze": {
+            "kind": "attack",
+            "rows": 1037,
+            "recall": 0.5728061716489875
+          },
+          "glitch": {
+            "kind": "not_spoofing",
+            "rows": 2400,
+            "false_positive_rate": 0.18041666666666667
+          },
+          "jump": {
+            "kind": "attack",
+            "rows": 1536,
+            "recall": 0.37109375
+          },
+          "low_sat_noise": {
+            "kind": "not_spoofing",
+            "rows": 1800,
+            "false_positive_rate": 0.0
+          },
+          "normal": {
+            "kind": "not_spoofing",
+            "rows": 7200,
+            "false_positive_rate": 0.00986111111111111
+          }
+        },
+        "events_test": {
+          "attacks": {
+            "jump": {
+              "n": 12,
+              "detection_rate": 1.0,
+              "median_delay_s": 0.0
+            },
+            "drift": {
+              "n": 10,
+              "detection_rate": 0.0,
+              "median_delay_s": null
+            },
+            "consistent_drift": {
+              "n": 8,
+              "detection_rate": 0.125,
+              "median_delay_s": 127.0
+            },
+            "freeze": {
+              "n": 7,
+              "detection_rate": 1.0,
+              "median_delay_s": 47.0
+            }
+          },
+          "non_attack_flights": {
+            "n": 43,
+            "share_with_any_alert": 0.3023255813953488,
+            "alerts_per_hour": 143.4418604651162
+          }
+        },
+        "kind": "supervised",
+        "params": {},
+        "threshold": 0.0010155428454888143,
+        "threshold_source": "highest recall with false-positive rate <= 2% on the validation split",
+        "calibration_test": {
+          "brier": 0.20269599360618903,
+          "ece": 0.20181169613307953,
+          "bins": [
+            {
+              "mean_predicted": 0.00019483274065920932,
+              "fraction_positive": 0.19718873715582047,
+              "count": 22481
+            },
+            {
+              "mean_predicted": 0.15811858526069011,
+              "fraction_positive": 0.36363636363636365,
+              "count": 22
+            },
+            {
+              "mean_predicted": 0.2516730456526021,
+              "fraction_positive": 0.5263157894736842,
+              "count": 19
+            },
+            {
+              "mean_predicted": 0.34618639369037746,
+              "fraction_positive": 0.4,
+              "count": 10
+            },
+            {
+              "mean_predicted": 0.4535081372539738,
+              "fraction_positive": 0.4166666666666667,
+              "count": 12
+            },
+            {
+              "mean_predicted": 0.5490299432880468,
+              "fraction_positive": 0.25,
+              "count": 16
+            },
+            {
+              "mean_predicted": 0.6435211555427326,
+              "fraction_positive": 0.14285714285714285,
+              "count": 7
+            },
+            {
+              "mean_predicted": 0.7676478171164786,
+              "fraction_positive": 0.7777777777777778,
+              "count": 18
+            },
+            {
+              "mean_predicted": 0.8592745845532452,
+              "fraction_positive": 0.82,
+              "count": 50
+            },
+            {
+              "mean_predicted": 0.9939235966070958,
+              "fraction_positive": 0.7054945054945055,
+              "count": 1365
+            }
+          ]
+        },
+        "timing": {
+          "fit_s": 0.16978216171264648,
+          "predict_ms_per_1000_rows": 0.6324251492818197
+        },
+        "artifact": {
+          "file": "models/kinematic__gaussian_nb.joblib",
+          "sha256": "512f064861a15108f3a0a4b38f6a76896d3e8a924038717bab57fc5f6580326d",
+          "size_bytes": 2249
+        }
+      },
+      "isolation_forest": {
+        "train": {
+          "precision": 0.5445463478545692,
+          "recall": 0.210389774740572,
+          "f1": 0.3035143769968051,
+          "accuracy": 0.7880555555555555,
+          "false_positive_rate": 0.04948750800768738,
+          "confusion_matrix": {
+            "tn": 53415,
+            "fp": 2781,
+            "fn": 12479,
+            "tp": 3325
+          },
+          "n": 72000,
+          "n_positive": 15804,
+          "pr_auc": 0.3564155725910684,
+          "roc_auc": 0.6436053309565777
+        },
+        "val": {
+          "precision": 0.5605605605605606,
+          "recall": 0.21455938697318008,
+          "f1": 0.31033527292878915,
+          "accuracy": 0.7925833333333333,
+          "false_positive_rate": 0.046751863684771036,
+          "confusion_matrix": {
+            "tn": 17902,
+            "fp": 878,
+            "fn": 4100,
+            "tp": 1120
+          },
+          "n": 24000,
+          "n_positive": 5220,
+          "pr_auc": 0.35522123353540763,
+          "roc_auc": 0.6417916773774986
+        },
+        "test": {
+          "precision": 0.5989280928986155,
+          "recall": 0.24457413824548604,
+          "f1": 0.3473193473193473,
+          "accuracy": 0.79,
+          "false_positive_rate": 0.04849597667008695,
+          "confusion_matrix": {
+            "tn": 17619,
+            "fp": 898,
+            "fn": 4142,
+            "tp": 1341
+          },
+          "n": 24000,
+          "n_positive": 5483,
+          "pr_auc": 0.40133536088627486,
+          "roc_auc": 0.6568277223572748
+        },
+        "per_scenario_test": {
+          "consistent_drift": {
+            "kind": "attack",
+            "rows": 1270,
+            "recall": 0.009448818897637795
+          },
+          "drift": {
+            "kind": "attack",
+            "rows": 1640,
+            "recall": 0.10365853658536585
+          },
+          "dropout": {
+            "kind": "not_spoofing",
+            "rows": 1500,
+            "false_positive_rate": 0.008666666666666666
+          },
+          "freeze": {
+            "kind": "attack",
+            "rows": 1037,
+            "recall": 0.9932497589199615
+          },
+          "glitch": {
+            "kind": "not_spoofing",
+            "rows": 2400,
+            "false_positive_rate": 0.20958333333333334
+          },
+          "jump": {
+            "kind": "attack",
+            "rows": 1536,
+            "recall": 0.083984375
+          },
+          "low_sat_noise": {
+            "kind": "not_spoofing",
+            "rows": 1800,
+            "false_positive_rate": 0.11722222222222223
+          },
+          "normal": {
+            "kind": "not_spoofing",
+            "rows": 7200,
+            "false_positive_rate": 0.014583333333333334
+          }
+        },
+        "events_test": {
+          "attacks": {
+            "jump": {
+              "n": 12,
+              "detection_rate": 1.0,
+              "median_delay_s": 0.0
+            },
+            "drift": {
+              "n": 10,
+              "detection_rate": 0.7,
+              "median_delay_s": 14.0
+            },
+            "consistent_drift": {
+              "n": 8,
+              "detection_rate": 0.25,
+              "median_delay_s": 33.0
+            },
+            "freeze": {
+              "n": 7,
+              "detection_rate": 1.0,
+              "median_delay_s": 1.0
+            }
+          },
+          "non_attack_flights": {
+            "n": 43,
+            "share_with_any_alert": 0.7906976744186046,
+            "alerts_per_hour": 232.18604651162778
+          }
+        },
+        "kind": "unsupervised_anomaly",
+        "params": {
+          "n_estimators": 200
+        },
+        "threshold": 0.07185659755930474,
+        "threshold_source": "99th percentile of anomaly scores on normal training flights (no labels)",
+        "timing": {
+          "fit_s": 0.37153172492980957
+        },
+        "artifact": {
+          "file": "models/kinematic__isolation_forest.joblib",
+          "sha256": "777976a4d15d03b4fc2fe34356ee7ac80cbaa32f06316ef0782a34e44a9a42e9",
+          "size_bytes": 646609
+        }
+      }
+    },
+    "full": {
+      "logistic_regression": {
+        "train": {
+          "precision": 0.8687584697175024,
+          "recall": 0.5273348519362187,
+          "f1": 0.6562979879513329,
+          "accuracy": 0.8787638888888889,
+          "false_positive_rate": 0.022403729802832943,
+          "confusion_matrix": {
+            "tn": 54937,
+            "fp": 1259,
+            "fn": 7470,
+            "tp": 8334
+          },
+          "n": 72000,
+          "n_positive": 15804,
+          "pr_auc": 0.7481593852150525,
+          "roc_auc": 0.8375226606360691
+        },
+        "val": {
+          "precision": 0.8785319909061383,
+          "recall": 0.5181992337164751,
+          "f1": 0.6518857693698036,
+          "accuracy": 0.879625,
+          "false_positive_rate": 0.019914802981895633,
+          "confusion_matrix": {
+            "tn": 18406,
+            "fp": 374,
+            "fn": 2515,
+            "tp": 2705
+          },
+          "n": 24000,
+          "n_positive": 5220,
+          "pr_auc": 0.7505775070530949,
+          "roc_auc": 0.839990401054354
+        },
+        "test": {
+          "precision": 0.8749030757301628,
+          "recall": 0.6173627576144447,
+          "f1": 0.7239093242087254,
+          "accuracy": 0.8924166666666666,
+          "false_positive_rate": 0.026138143327752876,
+          "confusion_matrix": {
+            "tn": 18033,
+            "fp": 484,
+            "fn": 2098,
+            "tp": 3385
+          },
+          "n": 24000,
+          "n_positive": 5483,
+          "pr_auc": 0.78897565644438,
+          "roc_auc": 0.8513518112132833
+        },
+        "per_scenario_test": {
+          "consistent_drift": {
+            "kind": "attack",
+            "rows": 1270,
+            "recall": 0.4818897637795276
+          },
+          "drift": {
+            "kind": "attack",
+            "rows": 1640,
+            "recall": 0.4426829268292683
+          },
+          "dropout": {
+            "kind": "not_spoofing",
+            "rows": 1500,
+            "false_positive_rate": 0.04133333333333333
+          },
+          "freeze": {
+            "kind": "attack",
+            "rows": 1037,
+            "recall": 0.9903567984570878
+          },
+          "glitch": {
+            "kind": "not_spoofing",
+            "rows": 2400,
+            "false_positive_rate": 0.03625
+          },
+          "jump": {
+            "kind": "attack",
+            "rows": 1536,
+            "recall": 0.6640625
+          },
+          "low_sat_noise": {
+            "kind": "not_spoofing",
+            "rows": 1800,
+            "false_positive_rate": 0.025555555555555557
+          },
+          "normal": {
+            "kind": "not_spoofing",
+            "rows": 7200,
+            "false_positive_rate": 0.029305555555555557
+          }
+        },
+        "events_test": {
+          "attacks": {
+            "jump": {
+              "n": 12,
+              "detection_rate": 0.9166666666666666,
+              "median_delay_s": 0.0
+            },
+            "drift": {
+              "n": 10,
+              "detection_rate": 1.0,
+              "median_delay_s": 5.0
+            },
+            "consistent_drift": {
+              "n": 8,
+              "detection_rate": 1.0,
+              "median_delay_s": 12.5
+            },
+            "freeze": {
+              "n": 7,
+              "detection_rate": 1.0,
+              "median_delay_s": 1.0
+            }
+          },
+          "non_attack_flights": {
+            "n": 43,
+            "share_with_any_alert": 0.8372093023255814,
+            "alerts_per_hour": 113.3023255813953
+          }
+        },
+        "kind": "supervised",
+        "params": {
+          "C": 10.0
+        },
+        "threshold": 0.7203381489993796,
+        "threshold_source": "highest recall with false-positive rate <= 2% on the validation split",
+        "calibration_test": {
+          "brier": 0.14437061350633237,
+          "ece": 0.19154641613554588,
+          "bins": [
+            {
+              "mean_predicted": 0.058745678947575514,
+              "fraction_positive": 0.056179775280898875,
+              "count": 1869
+            },
+            {
+              "mean_predicted": 0.15239964947042411,
+              "fraction_positive": 0.06817003628823225,
+              "count": 3858
+            },
+            {
+              "mean_predicted": 0.24992920747443986,
+              "fraction_positive": 0.08321132259638848,
+              "count": 4098
+            },
+            {
+              "mean_predicted": 0.348282164928126,
+              "fraction_positive": 0.09504685408299866,
+              "count": 3735
+            },
+            {
+              "mean_predicted": 0.4469065148283835,
+              "fraction_positive": 0.11383235598482236,
+              "count": 2899
+            },
+            {
+              "mean_predicted": 0.5467304315021306,
+              "fraction_positive": 0.13517372679676345,
+              "count": 2101
+            },
+            {
+              "mean_predicted": 0.6473986559886632,
+              "fraction_positive": 0.24778761061946902,
+              "count": 1356
+            },
+            {
+              "mean_predicted": 0.7490955365046172,
+              "fraction_positive": 0.5246727089627392,
+              "count": 993
+            },
+            {
+              "mean_predicted": 0.850756282556627,
+              "fraction_positive": 0.8689427312775331,
+              "count": 908
+            },
+            {
+              "mean_predicted": 0.9767217940336116,
+              "fraction_positive": 0.98900595510765,
+              "count": 2183
+            }
+          ]
+        },
+        "timing": {
+          "fit_s": 0.7131726741790771,
+          "predict_ms_per_1000_rows": 0.5586246649424235
+        },
+        "artifact": {
+          "file": "models/full__logistic_regression.joblib",
+          "sha256": "929d432c865492e983a2f26142011b694033f0ec48f144659fdecbda1c121182",
+          "size_bytes": 2869
+        }
+      },
+      "decision_tree": {
+        "train": {
+          "precision": 0.9541525012141816,
+          "recall": 0.6215515059478613,
+          "f1": 0.7527491474769148,
+          "accuracy": 0.910375,
+          "false_positive_rate": 0.00839917431845683,
+          "confusion_matrix": {
+            "tn": 55724,
+            "fp": 472,
+            "fn": 5981,
+            "tp": 9823
+          },
+          "n": 72000,
+          "n_positive": 15804,
+          "pr_auc": 0.8553569281955442,
+          "roc_auc": 0.9211556601466403
+        },
+        "val": {
+          "precision": 0.8900969732588893,
+          "recall": 0.5802681992337164,
+          "f1": 0.7025397193552128,
+          "accuracy": 0.893125,
+          "false_positive_rate": 0.019914802981895633,
+          "confusion_matrix": {
+            "tn": 18406,
+            "fp": 374,
+            "fn": 2191,
+            "tp": 3029
+          },
+          "n": 24000,
+          "n_positive": 5220,
+          "pr_auc": 0.7535599951662996,
+          "roc_auc": 0.8272435061755596
+        },
+        "test": {
+          "precision": 0.9034709906257917,
+          "recall": 0.6503738829108152,
+          "f1": 0.7563096500530223,
+          "accuracy": 0.90425,
+          "false_positive_rate": 0.02057568720635092,
+          "confusion_matrix": {
+            "tn": 18136,
+            "fp": 381,
+            "fn": 1917,
+            "tp": 3566
+          },
+          "n": 24000,
+          "n_positive": 5483,
+          "pr_auc": 0.7991273166649362,
+          "roc_auc": 0.8618746129850895
+        },
+        "per_scenario_test": {
+          "consistent_drift": {
+            "kind": "attack",
+            "rows": 1270,
+            "recall": 0.4267716535433071
+          },
+          "drift": {
+            "kind": "attack",
+            "rows": 1640,
+            "recall": 0.6640243902439025
+          },
+          "dropout": {
+            "kind": "not_spoofing",
+            "rows": 1500,
+            "false_positive_rate": 0.016666666666666666
+          },
+          "freeze": {
+            "kind": "attack",
+            "rows": 1037,
+            "recall": 0.9836065573770492
+          },
+          "glitch": {
+            "kind": "not_spoofing",
+            "rows": 2400,
+            "false_positive_rate": 0.03666666666666667
+          },
+          "jump": {
+            "kind": "attack",
+            "rows": 1536,
+            "recall": 0.595703125
+          },
+          "low_sat_noise": {
+            "kind": "not_spoofing",
+            "rows": 1800,
+            "false_positive_rate": 0.03111111111111111
+          },
+          "normal": {
+            "kind": "not_spoofing",
+            "rows": 7200,
+            "false_positive_rate": 0.020833333333333332
+          }
+        },
+        "events_test": {
+          "attacks": {
+            "jump": {
+              "n": 12,
+              "detection_rate": 0.9166666666666666,
+              "median_delay_s": 0.0
+            },
+            "drift": {
+              "n": 10,
+              "detection_rate": 1.0,
+              "median_delay_s": 1.5
+            },
+            "consistent_drift": {
+              "n": 8,
+              "detection_rate": 0.625,
+              "median_delay_s": 0.0
+            },
+            "freeze": {
+              "n": 7,
+              "detection_rate": 1.0,
+              "median_delay_s": 1.0
+            }
+          },
+          "non_attack_flights": {
+            "n": 43,
+            "share_with_any_alert": 0.8604651162790697,
+            "alerts_per_hour": 89.02325581395344
+          }
+        },
+        "kind": "supervised",
+        "params": {
+          "max_depth": 12
+        },
+        "threshold": 0.8648731839448411,
+        "threshold_source": "highest recall with false-positive rate <= 2% on the validation split",
+        "calibration_test": {
+          "brier": 0.1206672724420319,
+          "ece": 0.1445126755833098,
+          "bins": [
+            {
+              "mean_predicted": 0.020162522494322814,
+              "fraction_positive": 0.06508458646616541,
+              "count": 4256
+            },
+            {
+              "mean_predicted": 0.14268913697650704,
+              "fraction_positive": 0.06189885200124108,
+              "count": 6446
+            },
+            {
+              "mean_predicted": 0.2438580772276805,
+              "fraction_positive": 0.11181244364292155,
+              "count": 4436
+            },
+            {
+              "mean_predicted": 0.36315524291379503,
+              "fraction_positive": 0.17105263157894737,
+              "count": 532
+            },
+            {
+              "mean_predicted": 0.45043159731213744,
+              "fraction_positive": 0.10435132957292506,
+              "count": 2482
+            },
+            {
+              "mean_predicted": 0.5489024009600113,
+              "fraction_positive": 0.24568965517241378,
+              "count": 232
+            },
+            {
+              "mean_predicted": 0.6345649532101295,
+              "fraction_positive": 0.1708185053380783,
+              "count": 843
+            },
+            {
+              "mean_predicted": 0.737008133975135,
+              "fraction_positive": 0.1728,
+              "count": 625
+            },
+            {
+              "mean_predicted": 0.8663374128935425,
+              "fraction_positive": 0.3614457831325301,
+              "count": 498
+            },
+            {
+              "mean_predicted": 0.9907034960300132,
+              "fraction_positive": 0.9512328767123288,
+              "count": 3650
+            }
+          ]
+        },
+        "timing": {
+          "fit_s": 2.2681403160095215,
+          "predict_ms_per_1000_rows": 0.6811817487080891
+        },
+        "artifact": {
+          "file": "models/full__decision_tree.joblib",
+          "sha256": "721fe5a76cfbd9a332d0188f1aef0813e63e4dc0b6159efe5b9e96eaa3ead5ec",
+          "size_bytes": 30783
+        }
+      },
+      "random_forest": {
+        "train": {
+          "precision": 0.9286949006050129,
+          "recall": 0.6798911667932169,
+          "f1": 0.7850515087309126,
+          "accuracy": 0.9182777777777777,
+          "false_positive_rate": 0.014680760196455265,
+          "confusion_matrix": {
+            "tn": 55371,
+            "fp": 825,
+            "fn": 5059,
+            "tp": 10745
+          },
+          "n": 72000,
+          "n_positive": 15804,
+          "pr_auc": 0.8947414869868456,
+          "roc_auc": 0.9509746967257582
+        },
+        "val": {
+          "precision": 0.8970547756674925,
+          "recall": 0.6243295019157088,
+          "f1": 0.736247599683723,
+          "accuracy": 0.9027083333333333,
+          "false_positive_rate": 0.019914802981895633,
+          "confusion_matrix": {
+            "tn": 18406,
+            "fp": 374,
+            "fn": 1961,
+            "tp": 3259
+          },
+          "n": 24000,
+          "n_positive": 5220,
+          "pr_auc": 0.7996251503806007,
+          "roc_auc": 0.8677594775562165
+        },
+        "test": {
+          "precision": 0.8960977903149977,
+          "recall": 0.6952398322086449,
+          "f1": 0.7829927082263531,
+          "accuracy": 0.9119583333333333,
+          "false_positive_rate": 0.023869957336501595,
+          "confusion_matrix": {
+            "tn": 18075,
+            "fp": 442,
+            "fn": 1671,
+            "tp": 3812
+          },
+          "n": 24000,
+          "n_positive": 5483,
+          "pr_auc": 0.8371813756637002,
+          "roc_auc": 0.8871491434575585
+        },
+        "per_scenario_test": {
+          "consistent_drift": {
+            "kind": "attack",
+            "rows": 1270,
+            "recall": 0.43622047244094486
+          },
+          "drift": {
+            "kind": "attack",
+            "rows": 1640,
+            "recall": 0.7347560975609756
+          },
+          "dropout": {
+            "kind": "not_spoofing",
+            "rows": 1500,
+            "false_positive_rate": 0.019333333333333334
+          },
+          "freeze": {
+            "kind": "attack",
+            "rows": 1037,
+            "recall": 0.9951783992285439
+          },
+          "glitch": {
+            "kind": "not_spoofing",
+            "rows": 2400,
+            "false_positive_rate": 0.03916666666666667
+          },
+          "jump": {
+            "kind": "attack",
+            "rows": 1536,
+            "recall": 0.6647135416666666
+          },
+          "low_sat_noise": {
+            "kind": "not_spoofing",
+            "rows": 1800,
+            "false_positive_rate": 0.01611111111111111
+          },
+          "normal": {
+            "kind": "not_spoofing",
+            "rows": 7200,
+            "false_positive_rate": 0.029305555555555557
+          }
+        },
+        "events_test": {
+          "attacks": {
+            "jump": {
+              "n": 12,
+              "detection_rate": 0.9166666666666666,
+              "median_delay_s": 0.0
+            },
+            "drift": {
+              "n": 10,
+              "detection_rate": 1.0,
+              "median_delay_s": 1.5
+            },
+            "consistent_drift": {
+              "n": 8,
+              "detection_rate": 1.0,
+              "median_delay_s": 3.5
+            },
+            "freeze": {
+              "n": 7,
+              "detection_rate": 1.0,
+              "median_delay_s": 1.0
+            }
+          },
+          "non_attack_flights": {
+            "n": 43,
+            "share_with_any_alert": 0.9069767441860465,
+            "alerts_per_hour": 101.3023255813953
+          }
+        },
+        "kind": "supervised",
+        "params": {
+          "min_samples_leaf": 20
+        },
+        "threshold": 0.5780117738470713,
+        "threshold_source": "highest recall with false-positive rate <= 2% on the validation split",
+        "calibration_test": {
+          "brier": 0.10237309437720614,
+          "ece": 0.1468509408091531,
+          "bins": [
+            {
+              "mean_predicted": 0.060137916641257866,
+              "fraction_positive": 0.020178041543026708,
+              "count": 1685
+            },
+            {
+              "mean_predicted": 0.15432058229152126,
+              "fraction_positive": 0.050134460238186705,
+              "count": 5206
+            },
+            {
+              "mean_predicted": 0.2501637546556232,
+              "fraction_positive": 0.08571428571428572,
+              "count": 6370
+            },
+            {
+              "mean_predicted": 0.3417868139083449,
+              "fraction_positive": 0.0969227041434456,
+              "count": 4127
+            },
+            {
+              "mean_predicted": 0.44278759627789843,
+              "fraction_positive": 0.16538688718251623,
+              "count": 1693
+            },
+            {
+              "mean_predicted": 0.5435796121959034,
+              "fraction_positive": 0.24904214559386972,
+              "count": 783
+            },
+            {
+              "mean_predicted": 0.6466483771500648,
+              "fraction_positive": 0.528604118993135,
+              "count": 437
+            },
+            {
+              "mean_predicted": 0.7492480361166478,
+              "fraction_positive": 0.8028503562945368,
+              "count": 421
+            },
+            {
+              "mean_predicted": 0.8589363011639425,
+              "fraction_positive": 0.9036918138041734,
+              "count": 623
+            },
+            {
+              "mean_predicted": 0.9720138977471834,
+              "fraction_positive": 0.992467043314501,
+              "count": 2655
+            }
+          ]
+        },
+        "timing": {
+          "fit_s": 14.131042957305908,
+          "predict_ms_per_1000_rows": 4.135211308797201
+        },
+        "artifact": {
+          "file": "models/full__random_forest.joblib",
+          "sha256": "4c31508f93b5daa015ba83b4b29a3ed19700a0a67f354ded0e8ed6edf0c0abc3",
+          "size_bytes": 3633844
+        }
+      },
+      "gaussian_nb": {
+        "train": {
+          "precision": 0.7165295437546746,
+          "recall": 0.2424702606934953,
+          "f1": 0.36232980332829046,
+          "accuracy": 0.8126666666666666,
+          "false_positive_rate": 0.02697700903978931,
+          "confusion_matrix": {
+            "tn": 54680,
+            "fp": 1516,
+            "fn": 11972,
+            "tp": 3832
+          },
+          "n": 72000,
+          "n_positive": 15804,
+          "pr_auc": 0.5234869885594052,
+          "roc_auc": 0.7632044752782408
+        },
+        "val": {
+          "precision": 0.7580645161290323,
+          "recall": 0.22509578544061304,
+          "f1": 0.34711964549483015,
+          "accuracy": 0.8158333333333333,
+          "false_positive_rate": 0.019968051118210862,
+          "confusion_matrix": {
+            "tn": 18405,
+            "fp": 375,
+            "fn": 4045,
+            "tp": 1175
+          },
+          "n": 24000,
+          "n_positive": 5220,
+          "pr_auc": 0.5196955388909503,
+          "roc_auc": 0.7546961591976464
+        },
+        "test": {
+          "precision": 0.7001003009027081,
+          "recall": 0.25460514316979754,
+          "f1": 0.3734117961749365,
+          "accuracy": 0.8047916666666667,
+          "false_positive_rate": 0.032294648161149214,
+          "confusion_matrix": {
+            "tn": 17919,
+            "fp": 598,
+            "fn": 4087,
+            "tp": 1396
+          },
+          "n": 24000,
+          "n_positive": 5483,
+          "pr_auc": 0.5532683092254116,
+          "roc_auc": 0.7946643486885203
+        },
+        "per_scenario_test": {
+          "consistent_drift": {
+            "kind": "attack",
+            "rows": 1270,
+            "recall": 0.025196850393700787
+          },
+          "drift": {
+            "kind": "attack",
+            "rows": 1640,
+            "recall": 0.009146341463414634
+          },
+          "dropout": {
+            "kind": "not_spoofing",
+            "rows": 1500,
+            "false_positive_rate": 0.010666666666666666
+          },
+          "freeze": {
+            "kind": "attack",
+            "rows": 1037,
+            "recall": 0.7290260366441659
+          },
+          "glitch": {
+            "kind": "not_spoofing",
+            "rows": 2400,
+            "false_positive_rate": 0.16833333333333333
+          },
+          "jump": {
+            "kind": "attack",
+            "rows": 1536,
+            "recall": 0.3860677083333333
+          },
+          "low_sat_noise": {
+            "kind": "not_spoofing",
+            "rows": 1800,
+            "false_positive_rate": 0.0038888888888888888
+          },
+          "normal": {
+            "kind": "not_spoofing",
+            "rows": 7200,
+            "false_positive_rate": 0.012083333333333333
+          }
+        },
+        "events_test": {
+          "attacks": {
+            "jump": {
+              "n": 12,
+              "detection_rate": 1.0,
+              "median_delay_s": 0.0
+            },
+            "drift": {
+              "n": 10,
+              "detection_rate": 0.5,
+              "median_delay_s": 53.0
+            },
+            "consistent_drift": {
+              "n": 8,
+              "detection_rate": 0.5,
+              "median_delay_s": 73.0
+            },
+            "freeze": {
+              "n": 7,
+              "detection_rate": 1.0,
+              "median_delay_s": 39.0
+            }
+          },
+          "non_attack_flights": {
+            "n": 43,
+            "share_with_any_alert": 0.37209302325581395,
+            "alerts_per_hour": 143.4418604651162
+          }
+        },
+        "kind": "supervised",
+        "params": {},
+        "threshold": 0.00021838077101789485,
+        "threshold_source": "highest recall with false-positive rate <= 2% on the validation split",
+        "calibration_test": {
+          "brier": 0.19944947022623183,
+          "ece": 0.19862847208314668,
+          "bins": [
+            {
+              "mean_predicted": 0.000262247659594329,
+              "fraction_positive": 0.1942215088282504,
+              "count": 22428
+            },
+            {
+              "mean_predicted": 0.1409885975085282,
+              "fraction_positive": 0.6976744186046512,
+              "count": 43
+            },
+            {
+              "mean_predicted": 0.24293670053822627,
+              "fraction_positive": 0.5454545454545454,
+              "count": 22
+            },
+            {
+              "mean_predicted": 0.3447285167228224,
+              "fraction_positive": 0.6666666666666666,
+              "count": 27
+            },
+            {
+              "mean_predicted": 0.4447814818384991,
+              "fraction_positive": 0.5714285714285714,
+              "count": 14
+            },
+            {
+              "mean_predicted": 0.5423696675857402,
+              "fraction_positive": 0.5454545454545454,
+              "count": 11
+            },
+            {
+              "mean_predicted": 0.6677757025159796,
+              "fraction_positive": 0.65,
+              "count": 20
+            },
+            {
+              "mean_predicted": 0.7570546780364433,
+              "fraction_positive": 0.5185185185185185,
+              "count": 27
+            },
+            {
+              "mean_predicted": 0.8624768919102909,
+              "fraction_positive": 0.8695652173913043,
+              "count": 46
+            },
+            {
+              "mean_predicted": 0.9946775046408793,
+              "fraction_positive": 0.723935389133627,
+              "count": 1362
+            }
+          ]
+        },
+        "timing": {
+          "fit_s": 0.13769960403442383,
+          "predict_ms_per_1000_rows": 0.5811353524525961
+        },
+        "artifact": {
+          "file": "models/full__gaussian_nb.joblib",
+          "sha256": "40989d26cea3a9ad243658973bbe912c2b9c37deb393fe576b724e1bea425fda",
+          "size_bytes": 2615
+        }
+      },
+      "isolation_forest": {
+        "train": {
+          "precision": 0.5718860070445085,
+          "recall": 0.22601872943558593,
+          "f1": 0.3239909297052154,
+          "accuracy": 0.7929722222222222,
+          "false_positive_rate": 0.047583457897359245,
+          "confusion_matrix": {
+            "tn": 53522,
+            "fp": 2674,
+            "fn": 12232,
+            "tp": 3572
+          },
+          "n": 72000,
+          "n_positive": 15804,
+          "pr_auc": 0.39875371293219375,
+          "roc_auc": 0.690632975315686
+        },
+        "val": {
+          "precision": 0.5666163901458019,
+          "recall": 0.21590038314176246,
+          "f1": 0.3126647246497434,
+          "accuracy": 0.7935416666666667,
+          "false_positive_rate": 0.04589989350372737,
+          "confusion_matrix": {
+            "tn": 17918,
+            "fp": 862,
+            "fn": 4093,
+            "tp": 1127
+          },
+          "n": 24000,
+          "n_positive": 5220,
+          "pr_auc": 0.39906163703797015,
+          "roc_auc": 0.7021138898069602
+        },
+        "test": {
+          "precision": 0.6320590790616855,
+          "recall": 0.2653656757249681,
+          "f1": 0.3737957610789981,
+          "accuracy": 0.796875,
+          "false_positive_rate": 0.04574175082356753,
+          "confusion_matrix": {
+            "tn": 17670,
+            "fp": 847,
+            "fn": 4028,
+            "tp": 1455
+          },
+          "n": 24000,
+          "n_positive": 5483,
+          "pr_auc": 0.4549854860765797,
+          "roc_auc": 0.7211988931879574
+        },
+        "per_scenario_test": {
+          "consistent_drift": {
+            "kind": "attack",
+            "rows": 1270,
+            "recall": 0.02125984251968504
+          },
+          "drift": {
+            "kind": "attack",
+            "rows": 1640,
+            "recall": 0.15914634146341464
+          },
+          "dropout": {
+            "kind": "not_spoofing",
+            "rows": 1500,
+            "false_positive_rate": 0.009333333333333334
+          },
+          "freeze": {
+            "kind": "attack",
+            "rows": 1037,
+            "recall": 0.9932497589199615
+          },
+          "glitch": {
+            "kind": "not_spoofing",
+            "rows": 2400,
+            "false_positive_rate": 0.19708333333333333
+          },
+          "jump": {
+            "kind": "attack",
+            "rows": 1536,
+            "recall": 0.08919270833333333
+          },
+          "low_sat_noise": {
+            "kind": "not_spoofing",
+            "rows": 1800,
+            "false_positive_rate": 0.11611111111111111
+          },
+          "normal": {
+            "kind": "not_spoofing",
+            "rows": 7200,
+            "false_positive_rate": 0.013472222222222222
+          }
+        },
+        "events_test": {
+          "attacks": {
+            "jump": {
+              "n": 12,
+              "detection_rate": 1.0,
+              "median_delay_s": 0.0
+            },
+            "drift": {
+              "n": 10,
+              "detection_rate": 0.9,
+              "median_delay_s": 8.0
+            },
+            "consistent_drift": {
+              "n": 8,
+              "detection_rate": 0.375,
+              "median_delay_s": 42.0
+            },
+            "freeze": {
+              "n": 7,
+              "detection_rate": 1.0,
+              "median_delay_s": 1.0
+            }
+          },
+          "non_attack_flights": {
+            "n": 43,
+            "share_with_any_alert": 0.7906976744186046,
+            "alerts_per_hour": 221.30232558139522
+          }
+        },
+        "kind": "unsupervised_anomaly",
+        "params": {
+          "n_estimators": 200
+        },
+        "threshold": 0.04886188617262695,
+        "threshold_source": "99th percentile of anomaly scores on normal training flights (no labels)",
+        "timing": {
+          "fit_s": 0.3993072509765625
+        },
+        "artifact": {
+          "file": "models/full__isolation_forest.joblib",
+          "sha256": "ff73308783ad1ea6113b0eb63dcf00b9ee454a1962d4aa97c1b14b647760d522",
+          "size_bytes": 658437
+        }
+      }
+    }
+  },
+  "rules": {
+    "train": {
+      "precision": 0.5720810166799047,
+      "recall": 0.1822956213616806,
+      "f1": 0.27648752399232246,
+      "accuracy": 0.7905833333333333,
+      "false_positive_rate": 0.038347925119225565,
+      "confusion_matrix": {
+        "tn": 54041,
+        "fp": 2155,
+        "fn": 12923,
+        "tp": 2881
+      },
+      "n": 72000,
+      "n_positive": 15804,
+      "pr_auc": 0.28377397551599626,
+      "roc_auc": 0.5719738481212275
+    },
+    "val": {
+      "precision": 0.5511720983419096,
+      "recall": 0.1846743295019157,
+      "f1": 0.27665375233175493,
+      "accuracy": 0.7899583333333333,
+      "false_positive_rate": 0.041799787007454736,
+      "confusion_matrix": {
+        "tn": 17995,
+        "fp": 785,
+        "fn": 4256,
+        "tp": 964
+      },
+      "n": 24000,
+      "n_positive": 5220,
+      "pr_auc": 0.27912067103478944,
+      "roc_auc": 0.5714372712472305
+    },
+    "test": {
+      "precision": 0.6117393645665051,
+      "recall": 0.20718584716396132,
+      "f1": 0.30953678474114443,
+      "accuracy": 0.7888333333333334,
+      "false_positive_rate": 0.03893719284981369,
+      "confusion_matrix": {
+        "tn": 17796,
+        "fp": 721,
+        "fn": 4347,
+        "tp": 1136
+      },
+      "n": 24000,
+      "n_positive": 5483,
+      "pr_auc": 0.30786873849125473,
+      "roc_auc": 0.5841243271570739
+    },
+    "per_scenario_test": {
+      "consistent_drift": {
+        "kind": "attack",
+        "rows": 1270,
+        "recall": 0.0
+      },
+      "drift": {
+        "kind": "attack",
+        "rows": 1640,
+        "recall": 0.0
+      },
+      "dropout": {
+        "kind": "not_spoofing",
+        "rows": 1500,
+        "false_positive_rate": 0.03933333333333333
+      },
+      "freeze": {
+        "kind": "attack",
+        "rows": 1037,
+        "recall": 0.9797492767598843
+      },
+      "glitch": {
+        "kind": "not_spoofing",
+        "rows": 2400,
+        "false_positive_rate": 0.20416666666666666
+      },
+      "jump": {
+        "kind": "attack",
+        "rows": 1536,
+        "recall": 0.078125
+      },
+      "low_sat_noise": {
+        "kind": "not_spoofing",
+        "rows": 1800,
+        "false_positive_rate": 0.09555555555555556
+      },
+      "normal": {
+        "kind": "not_spoofing",
+        "rows": 7200,
+        "false_positive_rate": 0.0
+      }
+    },
+    "events_test": {
+      "attacks": {
+        "jump": {
+          "n": 12,
+          "detection_rate": 1.0,
+          "median_delay_s": 0.0
+        },
+        "drift": {
+          "n": 10,
+          "detection_rate": 0.0,
+          "median_delay_s": null
+        },
+        "consistent_drift": {
+          "n": 8,
+          "detection_rate": 0.0,
+          "median_delay_s": null
+        },
+        "freeze": {
+          "n": 7,
+          "detection_rate": 1.0,
+          "median_delay_s": 3.0
+        }
+      },
+      "non_attack_flights": {
+        "n": 43,
+        "share_with_any_alert": 0.4418604651162791,
+        "alerts_per_hour": 201.2093023255813
+      }
+    },
+    "kind": "rules",
+    "config": {
+      "max_speed_mps": 45.0,
+      "max_accel_mps2": 12.0,
+      "max_step_jump_m": 120.0,
+      "max_vertical_speed_mps": 15.0,
+      "speed_mismatch_mps": 3.0,
+      "max_gap_s": 30.0
+    }
+  },
+  "generalization": {
+    "kinematic": {
+      "jump": {
+        "recall_held_out": 0.3033854166666667,
+        "recall_seen_in_training": 0.4388020833333333,
+        "false_positive_rate_non_attack": 0.03527131782945737
+      },
+      "drift": {
+        "recall_held_out": 0.08658536585365853,
+        "recall_seen_in_training": 0.6378048780487805,
+        "false_positive_rate_non_attack": 0.024728682170542634
+      },
+      "consistent_drift": {
+        "recall_held_out": 0.014173228346456693,
+        "recall_seen_in_training": 0.04173228346456693,
+        "false_positive_rate_non_attack": 0.02178294573643411
+      },
+      "freeze": {
+        "recall_held_out": 0.9874638379942141,
+        "recall_seen_in_training": 0.9932497589199615,
+        "false_positive_rate_non_attack": 0.02744186046511628
+      }
+    },
+    "full": {
+      "jump": {
+        "recall_held_out": 0.388671875,
+        "recall_seen_in_training": 0.6647135416666666,
+        "false_positive_rate_non_attack": 0.028062015503875968
+      },
+      "drift": {
+        "recall_held_out": 0.45365853658536587,
+        "recall_seen_in_training": 0.7347560975609756,
+        "false_positive_rate_non_attack": 0.03511627906976744
+      },
+      "consistent_drift": {
+        "recall_held_out": 0.44251968503937006,
+        "recall_seen_in_training": 0.43622047244094486,
+        "false_positive_rate_non_attack": 0.025348837209302325
+      },
+      "freeze": {
+        "recall_held_out": 0.9942140790742526,
+        "recall_seen_in_training": 0.9951783992285439,
+        "false_positive_rate_non_attack": 0.031007751937984496
+      }
+    }
+  },
+  "selected": {
+    "feature_set": "full",
+    "model": "random_forest",
+    "selected_by": "validation PR-AUC",
+    "artifact": "full__random_forest"
+  }
+}

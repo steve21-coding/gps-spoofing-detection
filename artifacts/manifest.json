@@ -1,0 +1,87 @@
+{
+  "models": {
+    "full__decision_tree": {
+      "file": "models/full__decision_tree.joblib",
+      "sha256": "721fe5a76cfbd9a332d0188f1aef0813e63e4dc0b6159efe5b9e96eaa3ead5ec",
+      "size_bytes": 30783
+    },
+    "full__gaussian_nb": {
+      "file": "models/full__gaussian_nb.joblib",
+      "sha256": "40989d26cea3a9ad243658973bbe912c2b9c37deb393fe576b724e1bea425fda",
+      "size_bytes": 2615
+    },
+    "full__isolation_forest": {
+      "file": "models/full__isolation_forest.joblib",
+      "sha256": "ff73308783ad1ea6113b0eb63dcf00b9ee454a1962d4aa97c1b14b647760d522",
+      "size_bytes": 658437
+    },
+    "full__logistic_regression": {
+      "file": "models/full__logistic_regression.joblib",
+      "sha256": "929d432c865492e983a2f26142011b694033f0ec48f144659fdecbda1c121182",
+      "size_bytes": 2869
+    },
+    "full__random_forest": {
+      "file": "models/full__random_forest.joblib",
+      "sha256": "4c31508f93b5daa015ba83b4b29a3ed19700a0a67f354ded0e8ed6edf0c0abc3",
+      "size_bytes": 3633844
+    },
+    "kinematic__decision_tree": {
+      "file": "models/kinematic__decision_tree.joblib",
+      "sha256": "6852d3e93fdd2337e7458aba745544ceb2c995c70b8bffb5a3c71f6b609e7bea",
+      "size_bytes": 27305
+    },
+    "kinematic__gaussian_nb": {
+      "file": "models/kinematic__gaussian_nb.joblib",
+      "sha256": "512f064861a15108f3a0a4b38f6a76896d3e8a924038717bab57fc5f6580326d",
+      "size_bytes": 2249
+    },
+    "kinematic__isolation_forest": {
+      "file": "models/kinematic__isolation_forest.joblib",
+      "sha256": "777976a4d15d03b4fc2fe34356ee7ac80cbaa32f06316ef0782a34e44a9a42e9",
+      "size_bytes": 646609
+    },
+    "kinematic__logistic_regression": {
+      "file": "models/kinematic__logistic_regression.joblib",
+      "sha256": "661d79e8a73c2953aaaf4ca74b22452ea12113c619ff40387b2fa35042a7552c",
+      "size_bytes": 2497
+    },
+    "kinematic__random_forest": {
+      "file": "models/kinematic__random_forest.joblib",
+      "sha256": "9a06730f4f93b7ca1d2811efb1d93891ed215bb05d45b987696c26df95309934",
+      "size_bytes": 2300230
+    },
+    "position__decision_tree": {
+      "file": "models/position__decision_tree.joblib",
+      "sha256": "2083f0c40bea7dcbd22a74df36b5cc8839eae221940b85d896566cfe1232305b",
+      "size_bytes": 18148
+    },
+    "position__gaussian_nb": {
+      "file": "models/position__gaussian_nb.joblib",
+      "sha256": "20a124637e9eb27591afe999aa83054c1788050c8185651f7e39d8263ccc34dc",
+      "size_bytes": 1611
+    },
+    "position__isolation_forest": {
+      "file": "models/position__isolation_forest.joblib",
+      "sha256": "9a816b5f7986fca573b8bb48512deb32c675cc810484b59c76046eb2e2fee387",
+      "size_bytes": 673456
+    },
+    "position__logistic_regression": {
+      "file": "models/position__logistic_regression.joblib",
+      "sha256": "aa9d780782bba1649cf7838ede43b25f1d957df87ca4ac9e0b3b1620e4eb0b1b",
+      "size_bytes": 1871
+    },
+    "position__random_forest": {
+      "file": "models/position__random_forest.joblib",
+      "sha256": "9af558bbb84805eb3a2d92ec01a5be423547ccdc2742eb57f85b644ba56859b0",
+      "size_bytes": 2141581
+    }
+  },
+  "seed": 42,
+  "selected": {
+    "artifact": "full__random_forest",
+    "feature_set": "full",
+    "model": "random_forest",
+    "selected_by": "validation PR-AUC"
+  },
+  "trained_on": "synthetic"
+}

@@ -1,0 +1,224 @@
+{
+  "model": "full__random_forest",
+  "data_is_synthetic": true,
+  "split": "test",
+  "results": [
+    {
+      "min_consecutive": 1,
+      "precision": 0.8960977903149977,
+      "recall": 0.6952398322086449,
+      "f1": 0.7829927082263531,
+      "false_positive_rate": 0.023869957336501595,
+      "events": {
+        "attacks": {
+          "jump": {
+            "n": 12,
+            "detection_rate": 0.9166666666666666,
+            "median_delay_s": 0.0
+          },
+          "drift": {
+            "n": 10,
+            "detection_rate": 1.0,
+            "median_delay_s": 1.5
+          },
+          "consistent_drift": {
+            "n": 8,
+            "detection_rate": 1.0,
+            "median_delay_s": 3.5
+          },
+          "freeze": {
+            "n": 7,
+            "detection_rate": 1.0,
+            "median_delay_s": 1.0
+          }
+        },
+        "non_attack_flights": {
+          "n": 43,
+          "share_with_any_alert": 0.9069767441860465,
+          "alerts_per_hour": 101.3023255813953
+        }
+      }
+    },
+    {
+      "min_consecutive": 2,
+      "precision": 0.9694467382328654,
+      "recall": 0.6423490789713661,
+      "f1": 0.77270732777534,
+      "false_positive_rate": 0.005994491548306961,
+      "events": {
+        "attacks": {
+          "jump": {
+            "n": 12,
+            "detection_rate": 0.9166666666666666,
+            "median_delay_s": 1.0
+          },
+          "drift": {
+            "n": 10,
+            "detection_rate": 1.0,
+            "median_delay_s": 4.0
+          },
+          "consistent_drift": {
+            "n": 8,
+            "detection_rate": 0.625,
+            "median_delay_s": 1.0
+          },
+          "freeze": {
+            "n": 7,
+            "detection_rate": 1.0,
+            "median_delay_s": 2.0
+          }
+        },
+        "non_attack_flights": {
+          "n": 43,
+          "share_with_any_alert": 0.46511627906976744,
+          "alerts_per_hour": 26.790697674418592
+        }
+      }
+    },
+    {
+      "min_consecutive": 3,
+      "precision": 0.9868774232031017,
+      "recall": 0.6035017326281233,
+      "f1": 0.7489814395654142,
+      "false_positive_rate": 0.002376194847977534,
+      "events": {
+        "attacks": {
+          "jump": {
+            "n": 12,
+            "detection_rate": 0.9166666666666666,
+            "median_delay_s": 2.0
+          },
+          "drift": {
+            "n": 10,
+            "detection_rate": 1.0,
+            "median_delay_s": 6.5
+          },
+          "consistent_drift": {
+            "n": 8,
+            "detection_rate": 0.625,
+            "median_delay_s": 2.0
+          },
+          "freeze": {
+            "n": 7,
+            "detection_rate": 1.0,
+            "median_delay_s": 3.0
+          }
+        },
+        "non_attack_flights": {
+          "n": 43,
+          "share_with_any_alert": 0.27906976744186046,
+          "alerts_per_hour": 11.999999999999993
+        }
+      }
+    },
+    {
+      "min_consecutive": 5,
+      "precision": 0.9947159841479525,
+      "recall": 0.5493343060368412,
+      "f1": 0.7077899189284456,
+      "false_positive_rate": 0.0008640708538100124,
+      "events": {
+        "attacks": {
+          "jump": {
+            "n": 12,
+            "detection_rate": 0.9166666666666666,
+            "median_delay_s": 4.0
+          },
+          "drift": {
+            "n": 10,
+            "detection_rate": 0.9,
+            "median_delay_s": 7.0
+          },
+          "consistent_drift": {
+            "n": 8,
+            "detection_rate": 0.5,
+            "median_delay_s": 9.0
+          },
+          "freeze": {
+            "n": 7,
+            "detection_rate": 1.0,
+            "median_delay_s": 5.0
+          }
+        },
+        "non_attack_flights": {
+          "n": 43,
+          "share_with_any_alert": 0.09302325581395349,
+          "alerts_per_hour": 4.465116279069765
+        }
+      }
+    },
+    {
+      "min_consecutive": 8,
+      "precision": 0.9981624402793091,
+      "recall": 0.49534926135327373,
+      "f1": 0.6621160409556314,
+      "false_positive_rate": 0.00027002214181562887,
+      "events": {
+        "attacks": {
+          "jump": {
+            "n": 12,
+            "detection_rate": 0.9166666666666666,
+            "median_delay_s": 7.0
+          },
+          "drift": {
+            "n": 10,
+            "detection_rate": 0.9,
+            "median_delay_s": 10.0
+          },
+          "consistent_drift": {
+            "n": 8,
+            "detection_rate": 0.5,
+            "median_delay_s": 22.5
+          },
+          "freeze": {
+            "n": 7,
+            "detection_rate": 1.0,
+            "median_delay_s": 8.0
+          }
+        },
+        "non_attack_flights": {
+          "n": 43,
+          "share_with_any_alert": 0.046511627906976744,
+          "alerts_per_hour": 1.3953488372093015
+        }
+      }
+    },
+    {
+      "min_consecutive": 12,
+      "precision": 1.0,
+      "recall": 0.4484771110705818,
+      "f1": 0.6192394862754974,
+      "false_positive_rate": 0.0,
+      "events": {
+        "attacks": {
+          "jump": {
+            "n": 12,
+            "detection_rate": 0.9166666666666666,
+            "median_delay_s": 11.0
+          },
+          "drift": {
+            "n": 10,
+            "detection_rate": 0.8,
+            "median_delay_s": 15.5
+          },
+          "consistent_drift": {
+            "n": 8,
+            "detection_rate": 0.5,
+            "median_delay_s": 74.5
+          },
+          "freeze": {
+            "n": 7,
+            "detection_rate": 1.0,
+            "median_delay_s": 12.0
+          }
+        },
+        "non_attack_flights": {
+          "n": 43,
+          "share_with_any_alert": 0.0,
+          "alerts_per_hour": 0.0
+        }
+      }
+    }
+  ],
+  "note": "Persistence trades detection delay for fewer false alarms; k=1 equals metrics.json."
+}

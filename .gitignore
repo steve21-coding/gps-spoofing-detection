@@ -1,0 +1,28 @@
+# Python
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+.pytest_cache/
+.ipynb_checkpoints/
+*.egg-info/
+
+# Environment / secrets
+.env
+.env.local
+
+# Raw or downloaded datasets (never commit third-party data; see README for download steps)
+ml/data/raw/
+ml/data/external/
+*.bin
+
+# Node / Next.js
+node_modules/
+website/.next/
+website/out/
+.vercel/
+
+# OS / editor
+.DS_Store
+.idea/
+.vscode/
